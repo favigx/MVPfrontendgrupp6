@@ -59,7 +59,18 @@ function displayCart() {
             .then(res => res.json())
             .then(product => {
                 let cartItem = document.createElement("li");
-                cartItem.innerText = product.productName;
+                cartItem.innerText = product.productName + " ";
+                
+               /*  let removeFromCartBtn = document.createElement("button");
+                removeFromCartBtn.innerText = "Delete";
+                removeFromCartBtn.addEventListener("click", function () {
+                    cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
+                    cartItems.delete(productId);
+                    localStorage.setItem('cartItems', JSON.stringify(Array.from(cartItems)));
+                    displayCart();
+                });
+                
+                cartItem.append(removeFromCartBtn); */
                 productCart.appendChild(cartItem);
             })
             .catch(error => {
