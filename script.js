@@ -55,7 +55,7 @@ function displayCart() {
     } else {
         productCart.innerHTML = '';
         cartItems.forEach(productId => {
-            fetch(`http://localhost:8080/api/product/${productId}`)
+            fetch(`git http://localhost:8080/api/product/${productId}`)
             .then(res => res.json())
             .then(product => {
                 let cartItem = document.createElement("li");
@@ -79,5 +79,35 @@ function displayCart() {
         });
     }
 }
+
+function productByCategory(category) {
+    fetch(`http://localhost:8080/api/product/category/${category}`)
+        .then(res => res.json())
+        .then(data => {
+            displayProducts(data);
+        })
+        .catch(error => {
+            console.error('Error fetching products by category:', error);
+        });
+}
+
+function displayProducts(products) {
+    let productListt = document.getElementById("productListByCategory");
+    productListt.innerHTML = '';
+
+    products.forEach(product => {
+        let li = document.createElement("li");
+        li.innerText = product.productName;
+        productListt.appendChild(li);
+    });
+}
+
+function handleCategorySelection() {
+    let dropdown = document.getElementById("dropDownCategory");
+    let selectedCategory = dropdown.options[dropdown.selectedIndex].value;
+    productByCategory(selectedCategory);
+}
+
+handleCategorySelection();
 
 cart.addEventListener("click", displayCart);
