@@ -58,16 +58,29 @@ function displayCart() {
             fetch(`http://localhost:8080/api/product/${productId}`)
             .then(res => res.json())
             .then(product => {
+                
                 let cartItem = document.createElement("li");
                 cartItem.innerText = product.productName + " ";
                 
                 let removeFromCartBtn = document.createElement("button");
                 removeFromCartBtn.innerText = "Delete";
                 removeFromCartBtn.addEventListener("click", function () {
-                    cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
-                    cartItems.delete(productId);
-                    localStorage.setItem('cartItems', JSON.stringify(Array.from(cartItems)));
-                    displayCart();
+                    fetch(`http://localhost:8080/api/product/remove/${productId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            let cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
+                            cartItems.delete(productId);
+                            localStorage.setItem('cartItems', JSON.stringify(Array.from(cartItems)));
+                            displayCart();
+                        } else {
+                            throw new Error('Failed to remove product from cart');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error removing product from cart:', error);
+                    });
                 });
                 
                 cartItem.append(removeFromCartBtn);
