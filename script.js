@@ -61,7 +61,7 @@ function displayCart() {
                 let cartItem = document.createElement("li");
                 cartItem.innerText = product.productName + " ";
                 
-               /*  let removeFromCartBtn = document.createElement("button");
+                let removeFromCartBtn = document.createElement("button");
                 removeFromCartBtn.innerText = "Delete";
                 removeFromCartBtn.addEventListener("click", function () {
                     cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
@@ -70,7 +70,7 @@ function displayCart() {
                     displayCart();
                 });
                 
-                cartItem.append(removeFromCartBtn); */
+                cartItem.append(removeFromCartBtn);
                 productCart.appendChild(cartItem);
             })
             .catch(error => {
