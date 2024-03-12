@@ -74,7 +74,7 @@ function displayCart() {
                 productCart.appendChild(cartItem);
             })
             .catch(error => {
-                console.error('Error fetching product:', error);
+                console.error('Error fetching product: ', error);
             });
         });
     }
