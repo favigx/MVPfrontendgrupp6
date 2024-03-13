@@ -45,11 +45,11 @@ function addToCart(productId) {
             let existingCartItem = cartItems.find(item => item.productId === productId);
             if (existingCartItem) {
                 existingCartItem.quantity++;
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                // localStorage.setItem('cartItems', JSON.stringify(cartItems));
                 displayCart(); 
             } else {
                 cartItems.push({ productId: productId, quantity: 1 });
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                // localStorage.setItem('cartItems', JSON.stringify(cartItems));
                 displayCart();
             }
         } else {
@@ -65,9 +65,6 @@ function displayCart() {
     fetch(`http://localhost:8080/api/product/cart`)
     .then(res => res.json())
     .then(cartItems => {
-        if (cartItems.length === 0) {
-            productCart.innerHTML = '<p>Kundvagnen är tom</p>';
-        } else {
             productCart.innerHTML = '';
             cartItems.forEach(item => {
                 let productId = item.productId;
@@ -83,9 +80,25 @@ function displayCart() {
                         fetch(`http://localhost:8080/api/product/decrease/${productId}`, {
                             method: 'PUT'
                         })
-                    });                
+                        .then(response => {
+                            if (response.ok) {
+                                // let cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
+                                // cartItems.delete(productId);
+                                // localStorage.setItem('cartItems', JSON.stringify(Array.from(cartItems)));
+                                productCart.innerHTML = '';
+                                displayCart();
+                            } else {
+                                throw new Error('Failed to remove product from cart');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error removing product from cart:', error);
+                        
+                    });
+                    });               
                     cartItem.append(removeFromCartBtn);
                     productCart.appendChild(cartItem);
+               
                 })
             });
             let createCheckoutBtn = document.createElement("button")
@@ -101,13 +114,14 @@ function displayCart() {
                 })
             })
             productCart.appendChild(createCheckoutBtn);
-        }
+        
     })
     .catch(error => {
         console.error('Misslyckades att hämta kundvagn', error);
     });
+    
 }
-displayCart();
+
 
 function createCheckoutSession() {
     return fetch(`http://localhost:8080/api/product/createcheckoutsession`, {
