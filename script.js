@@ -54,10 +54,12 @@ function addToCart(productId) {
                 displayCart();
 
             }
+        }
         })
         .catch(error => {
             console.error('Misslyckades att lägga till i kundvagn', error);
         });
+        
 }
 
 function displayCart() {
