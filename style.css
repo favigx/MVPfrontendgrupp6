@@ -43,3 +43,32 @@ body {
 li {
     display: inline;
 }
+
+.product-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 10px;
+}
+
+.product-overlay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-overlay button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: black;
+    color: blue;
+    border: none;
+    cursor: pointer;
+}
+
+.product-overlay button:hover {
+    background-color: #0056b3;
+}
