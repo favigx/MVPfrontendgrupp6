@@ -1,3 +1,74 @@
-body{
+body {
     background-color: aquamarine;
+    height: 100%;
+    margin: 0;
+}
+
+.taskbar {
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(242, 134, 10);
+}
+
+.upper-half,
+.lower-half {
+    flex: 1;
+    overflow: hidden;
+}
+
+.upper-half img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    display: flex;
+    width: 100%;
+}
+
+.lower-half img {
+    flex: 1;
+    height: 600px;
+    object-fit: cover;
+    max-width: 16.66%;
+}
+
+.cotainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+li {
+    display: inline;
+}
+
+.product-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 10px;
+}
+
+.product-overlay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-overlay button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: black;
+    color: blue;
+    border: none;
+    cursor: pointer;
+}
+
+.product-overlay button:hover {
+    background-color: #0056b3;
 }
