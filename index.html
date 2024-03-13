@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,11 @@
     <link rel="stylesheet" href="style.css">
     <link href="/favicon.ico" type="image/x-icon" rel="icon" />
 </head>
+
 <body>
-    <h1>Hello</h1>
 
-    <div>
-        <ul id = "productList"></ul>
-        <button id = "cart" >Cart</button>
-        <ul id = "productCart"></ul>
-    </div>
+    <div class="taskbar">
 
-    <div>
-        <ul id="productListByCategory"></ul>
         <select id="dropDownCategory" onchange="handleCategorySelection()">
             <option value="">Välj en kategori</option>
             <option value="Smarthem">Smarthem</option>
@@ -26,6 +21,24 @@
             <option value="Hemhjälp">Hemhjälp</option>
             <option value="Avancerad">Avancerad</option>
         </select>
+
+        <ul id="productCart"></ul>
+        <button id="cart">Cart</button>
     </div>
+
+    <div class="container">
+        <div class="upper-half">
+            <img src="Bakgrund-MVP.jpg">
+        </div>
+
+
+        <div class="lower-half">
+            <ul>
+                <li id="productListByCategory"></li>
+                <li id="productList"></li>
+            </ul>
+        </div>
+
 </body>
+
 </html>
