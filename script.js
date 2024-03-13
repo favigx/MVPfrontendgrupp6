@@ -4,6 +4,7 @@ let productList = document.getElementById("productList");
 let productDetails = document.getElementById("productDetails");
 let productCart = document.getElementById("productCart")
 let cart = document.getElementById("cart");
+let isCartVisible = false;
 
 printProducts();
 
@@ -56,7 +57,6 @@ function addToCart(productId) {
 }
 
 function displayCart() {
-
     fetch(`http://localhost:8080/api/product/cart`)
     .then(res => res.json())
     .then(cartItems => {
@@ -80,8 +80,10 @@ function displayCart() {
                         })
                         .then(response => {
                             if (response.ok) {
+                                
                                 let cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
                                 cartItems.delete(productId);
+                                productCart.innerHTML = '';
                                 localStorage.setItem('cartItems', JSON.stringify(Array.from(cartItems)));
                                 displayCart();
                             } else {
@@ -99,7 +101,6 @@ function displayCart() {
                 .catch(error => {
                     console.error('Error fetching product:', error);
                 });
-
             });
         }
     })
@@ -107,7 +108,6 @@ function displayCart() {
         console.error('Error fetching cart:', error);
     });
 }
-
 function productByCategory(category) {
     fetch(`http://localhost:8080/api/product/category/${category}`)
         .then(res => res.json())
@@ -138,4 +138,16 @@ function handleCategorySelection() {
 
 handleCategorySelection();
 
-cart.addEventListener("click", displayCart);
+function toggleCart() {
+    isCartVisible = !isCartVisible;
+
+    if (isCartVisible) {
+        displayCart();
+    } else {
+        productCart.innerHTML = ''; 
+    }
+}
+
+cart.addEventListener("click", toggleCart);
+
+
