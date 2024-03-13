@@ -10,33 +10,34 @@ printProducts();
 
 function printProducts() {
     fetch(`http://localhost:8080/api/product/`)
-    .then(res => res.json())
-    .then(data => {
-        data.forEach(product => {
-            let li = document.createElement("li");
-            let img = document.createElement("img")
-            img.src=product.imgUrl
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(product => {
+                let li = document.createElement("li");
+                let img = document.createElement("img");
+                img.src = product.imgUrl;
+                li.innerText = product.productName;
 
-            li.innerText = product.productName
-            // li.appendChild(img)
 
-            let button = document.createElement("button")
-            button.innerText = "Lägg till"
-            button.addEventListener("click", function () {
-                addToCart(product.productId);
-            })
-            productList.appendChild(li);
-            productList.appendChild(button);
+                li.appendChild(img);
+                let button = document.createElement("button");
+                button.innerText = "add to cart";
+                button.addEventListener("click", function() {
+                    addToCart(product.productId);
+                });
+                li.appendChild(button);
+                productList.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching products:', error);
         });
-    })
-    .catch(error => {
-        console.error('Fel av hämtningen av kundvagn', error);
-    });
 }
 
 function addToCart(productId) {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     fetch(`http://localhost:8080/api/product/addtocart/${productId}`, {
+
         method: 'POST'
     })
     .then(response => {
@@ -51,18 +52,17 @@ function addToCart(productId) {
                 cartItems.push({ productId: productId, quantity: 1 });
                 // localStorage.setItem('cartItems', JSON.stringify(cartItems));
                 displayCart();
+
             }
-        } else {
-            throw new Error('Misslyckades att lägga till i kundvagn');
-        }
-    })
-    .catch(error => {
-        console.error('Misslyckades att lägga till i kundvagn', error);
-    });
+        })
+        .catch(error => {
+            console.error('Misslyckades att lägga till i kundvagn', error);
+        });
 }
 
 function displayCart() {
     fetch(`http://localhost:8080/api/product/cart`)
+
     .then(res => res.json())
     .then(cartItems => {
             productCart.innerHTML = '';
@@ -119,22 +119,22 @@ function displayCart() {
     .catch(error => {
         console.error('Misslyckades att hämta kundvagn', error);
     });
-    
 }
 
 
 function createCheckoutSession() {
     return fetch(`http://localhost:8080/api/product/createcheckoutsession`, {
-        method: 'POST'
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error('Misslyckades att skapa betalning');
-        }
-    });
+            method: 'POST'
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error('Misslyckades att skapa betalning');
+            }
+        });
 }
+
 function productByCategory(category) {
     fetch(`http://localhost:8080/api/product/category/${category}`)
         .then(res => res.json())
@@ -171,10 +171,8 @@ function toggleCart() {
     if (isCartVisible) {
         displayCart();
     } else {
-        productCart.innerHTML = ''; 
+        productCart.innerHTML = '';
     }
 }
 
 cart.addEventListener("click", toggleCart);
-
-
