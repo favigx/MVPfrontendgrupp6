@@ -1,0 +1,14 @@
+body {
+    background-image: url("hallway.jpg");
+    background-color: #cccccc;
+    background-size: cover;
+   }
+
+h1{
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 18%;
+    padding-top: 50px;
+    text-shadow: 2px 2px 4px #000000;
+}
