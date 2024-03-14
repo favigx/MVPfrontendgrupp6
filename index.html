@@ -14,9 +14,6 @@
 
     <div class="taskbar">
 
-        <p style="font-family:'Times New Roman', Times, serif"> AI_ ROBOT</p>
-
-
         <select id="dropDownCategory" onchange="handleCategorySelection()">
             <option value="">Välj en kategori</option>
             <option value="Smarthem">Smarthem</option>
@@ -25,9 +22,8 @@
             <option value="Avancerad">Avancerad</option>
         </select>
 
-
+        <ul id="productCart"></ul>
         <button id="cart">Cart</button>
-        <i class="fa-solid fa-cart-shopping"></i>
     </div>
 
     <div class="container">
@@ -35,13 +31,14 @@
             <img src="Bakgrund-MVP.jpg">
         </div>
 
+    </div>
 
-        <div class="lower-half">
-
+    <div class="lower-half">
+        <ul>
             <li id="productListByCategory"></li>
             <li id="productList"></li>
-
-        </div>
+        </ul>
+    </div>
 
 </body>
 
