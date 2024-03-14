@@ -13,20 +13,33 @@ function printProducts() {
         .then(res => res.json())
         .then(data => {
             data.forEach(product => {
-                let li = document.createElement("li");
+                let container = document.createElement("div");
+                container.className = "product-container";
+
                 let img = document.createElement("img");
                 img.src = product.imgUrl;
-                li.innerText = product.productName;
+                img.className = "product-image";
 
+                let overlay = document.createElement("div");
+                overlay.className = "overlay";
 
-                li.appendChild(img);
                 let button = document.createElement("button");
-                button.innerText = "add to cart";
+                button.innerText = "Add to cart";
                 button.addEventListener("click", function() {
                     addToCart(product.productId);
                 });
-                li.appendChild(button);
-                productList.appendChild(li);
+
+                let text = document.createElement("span");
+                text.innerText = product.productName;
+                text.className = "product-name";
+
+                overlay.appendChild(button);
+                overlay.appendChild(text);
+
+                container.appendChild(img);
+                container.appendChild(overlay);
+
+                productList.appendChild(container);
             });
         })
         .catch(error => {
