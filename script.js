@@ -46,16 +46,15 @@ function addToCart(productId) {
             let existingCartItem = cartItems.find(item => item.productId === productId);
             if (existingCartItem) {
                 existingCartItem.quantity++;
-                // localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
                 displayCart(); 
             } else {
                 cartItems.push({ productId: productId, quantity: 1 });
-                // localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
                 displayCart();
-
             }
         }
-        })
+    })
         .catch(error => {
             console.error('Misslyckades att lägga till i kundvagn', error);
         });
@@ -84,20 +83,27 @@ function displayCart() {
                         })
                         .then(response => {
                             if (response.ok) {
-                                // let cartItems = new Set(JSON.parse(localStorage.getItem('cartItems')) || []);
-                                // cartItems.delete(productId);
-                                // localStorage.setItem('cartItems', JSON.stringify(Array.from(cartItems)));
-                                productCart.innerHTML = '';
-                                displayCart();
+                                let existingCartItem = cartItems.find(item => item.productId === productId);
+                                if (existingCartItem) {
+                                    existingCartItem.quantity--;
+                                    if (existingCartItem.quantity === 0) {
+                                    
+                                        cartItems = cartItems.filter(item => item.productId !== productId);
+                                    }
+                                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                                    productCart.innerHTML = '';
+                                    displayCart();
+                                } else {
+                                    throw new Error('Produkten kunde ej hittas i kundvagnen');
+                                }
                             } else {
-                                throw new Error('Failed to remove product from cart');
+                                throw new Error('Misslyckades att ta bort från kundvagnen');
                             }
                         })
                         .catch(error => {
-                            console.error('Error removing product from cart:', error);
-                        
+                            console.error('Misslyckades(error) att ta bort från kundvagnen', error);
+                        });
                     });
-                    });               
                     cartItem.append(removeFromCartBtn);
                     productCart.appendChild(cartItem);
                
@@ -122,7 +128,6 @@ function displayCart() {
         console.error('Misslyckades att hämta kundvagn', error);
     });
 }
-
 
 function createCheckoutSession() {
     return fetch(`http://localhost:8080/api/product/createcheckoutsession`, {
