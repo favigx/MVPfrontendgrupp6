@@ -1,15 +1,15 @@
 body {
-    background-color: aquamarine;
+    background-color: rgb(255, 255, 255);
     height: 100%;
     margin: 0;
 }
 
 .taskbar {
-    padding: 15px 0;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(242, 134, 10);
+    background-color: #d7d2d2;
 }
 
 .upper-half,
@@ -22,21 +22,19 @@ body {
     width: 100%;
     height: 600px;
     object-fit: cover;
-    display: flex;
-    width: 100%;
 }
 
 .lower-half img {
-    flex: 1;
     height: 600px;
     object-fit: cover;
-    max-width: 16.66%;
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .cotainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 150vh;
     overflow: hidden;
 }
 
@@ -44,31 +42,52 @@ li {
     display: inline;
 }
 
-.product-overlay {
+.product-container {
+    position: relative;
+    display: inline-block;
+    width: 16.666% !important;
+}
+
+.product-container img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: black;
-    padding: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.product-overlay ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.product-container:hover .overlay {
+    opacity: 1;
 }
 
-.product-overlay button {
-    display: block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: black;
-    color: blue;
-    border: none;
+.product-name {
+    color: white;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+#cart {
+    background-color: rgb(169, 166, 166);
+    border: 20xp;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-}
-
-.product-overlay button:hover {
-    background-color: #0056b3;
 }
