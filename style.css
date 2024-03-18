@@ -91,3 +91,37 @@ li {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.product-info-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+}
+
+.product-details img {
+    max-width: 500px; 
+    max-height: 500px;
+    margin-right: 20px; 
+}
+
+.description-price {
+    flex-grow: 1; 
+}
+
+.product-info-box h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.description-price p {
+    margin: 0;
+    margin-top: 5px;
+}
+
+.description-price p:first-child {
+    font-weight: bold;
+}

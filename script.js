@@ -29,10 +29,17 @@ function printProducts() {
                     addToCart(product.productId);
                 });
 
+                let infoBtn = document.createElement("button");
+                infoBtn.innerText = "Mer info";
+                infoBtn.addEventListener("click", function() {
+                                    displayProductDetails(product.productId);
+                                });
+
                 let text = document.createElement("span");
                 text.innerText = product.productName;
                 text.className = "product-name";
 
+                overlay.appendChild(infoBtn);
                 overlay.appendChild(button);
                 overlay.appendChild(text);
 
@@ -194,6 +201,61 @@ function toggleCart() {
     } else {
         productCart.innerHTML = '';
     }
+}
+
+function displayProductDetails(productId) {
+    fetch(`http://localhost:8080/api/product/${productId}`)
+        .then(res => res.json())
+        .then(product => {
+
+            productList.innerHTML = "";
+            
+            let productInfoBox = document.createElement("div");
+            productInfoBox.className = "product-info-box";
+            
+            let productName = document.createElement("h2");
+            productName.textContent = product.productName;
+
+            let productDetailsContainer = document.createElement("div");
+            productDetailsContainer.className = "product-details";
+
+            let productImage = document.createElement("img");
+            productImage.src = product.imgUrl;
+            productImage.alt = product.productName;
+
+            let descriptionPriceContainer = document.createElement("div");
+            descriptionPriceContainer.className = "description-price";
+
+            let productDescription = document.createElement("p");
+            productDescription.textContent = "beskrivning här: " + product.description;
+
+            let productPrice = document.createElement("p");
+            productPrice.textContent = "Price: " + product.price + " kr";
+
+            let backBtn = document.createElement("button");
+            backBtn.innerText = "Tillbaka";
+
+            descriptionPriceContainer.appendChild(productDescription);
+            descriptionPriceContainer.appendChild(productPrice);
+            descriptionPriceContainer.appendChild(backBtn);
+
+            backBtn.addEventListener("click", function() {
+                productList.innerHTML = "";
+                printProducts();
+            });
+
+            productDetailsContainer.appendChild(productImage);
+            productDetailsContainer.appendChild(descriptionPriceContainer);
+
+            productInfoBox.appendChild(productName);
+            productInfoBox.appendChild(productDetailsContainer);
+
+            productList.appendChild(productInfoBox);
+            productList.scrollIntoView({ behavior: "smooth" });
+        })
+        .catch(error => {
+            console.error('Error fetching product details:', error);
+        });
 }
 
 cart.addEventListener("click", toggleCart);
