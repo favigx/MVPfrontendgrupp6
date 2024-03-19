@@ -122,7 +122,7 @@ function displayCart() {
 
     if (cartItems.length > 0) {
         let createCheckoutBtn = document.createElement("button")
-        createCheckoutBtn.innerText = "Betalning"
+        createCheckoutBtn.innerText = "Checkout"
         createCheckoutBtn.addEventListener("click", function() {
             createCheckoutSession();     
         })
@@ -278,11 +278,11 @@ function displayProductDetails(productId) {
             productName.style.position = "absolute"; 
             
             productName.style.bottom = "1150px"; 
-            productName.style.left = "60px"; 
+            productName.style.left = "110px"; 
             productName.style.color = "Red";
             
-            productImage.style.width = "860px";
-            productImage.style.height = "auto"; 
+            productImage.style.width = "100%";
+            productImage.style.height = "100%"; 
 
            
 
@@ -291,20 +291,21 @@ function displayProductDetails(productId) {
             productDescription.style.position = "absolute"; 
             
         
-            productDescription.style.top = "100px"; 
-            productDescription.style.left = "23px"; 
+            productDescription.style.top = "250px"; 
+            productDescription.style.left = "70px"; 
             productDescription.style.color = "white";
-            productDescription.style.maxWidth = "250px";
+            productDescription.style.maxWidth = "600px";
+            productDescription.style.fontSize = "40px"
 
             let productPrice = document.createElement("p");
             productPrice.textContent = "Price: " + product.price + " kr";
             productPrice.style.position = "absolute"; 
             
         
-            productPrice.style.top = "110px"; 
-            productPrice.style.left = "750px"; 
+            productPrice.style.top = "750px"; 
+            productPrice.style.left = "110px"; 
             productPrice.style.color = "white";
-            
+            productPrice.style.fontSize = "20px"
 
             imageTextContainer.appendChild(productImage);
             imageTextContainer.appendChild(productName);
@@ -321,17 +322,17 @@ function displayProductDetails(productId) {
 
             let buyBtn = document.createElement("button");
             buyBtn.style.position = "absolute"; 
-            buyBtn.style.top = "70px"; 
-            buyBtn.style.left = "730px";
+            buyBtn.style.top = "710px"; 
+            buyBtn.style.left = "70px";
             buyBtn.style.padding = "15px 34px";
             buyBtn.style.textDecoration = "none";
             buyBtn.style.display = "inline-block";
             buyBtn.style.margin = "4px 2px";
             buyBtn.style.cursor = "pointer";
             buyBtn.style.borderRadius = "15px";
-            buyBtn.style.width = "50px"; 
-            buyBtn.style.height = "65px"; 
-            buyBtn.style.backgroundImage = "url('carticon.jpg')";
+            buyBtn.style.width = "70px"; 
+            buyBtn.style.height = "70px"; 
+            buyBtn.style.backgroundImage = "url('cart1.jpg')";
             buyBtn.style.backgroundSize = "cover"; 
             buyBtn.style.backgroundRepeat = "no-repeat"; 
 
@@ -343,7 +344,7 @@ function displayProductDetails(productId) {
 
 
             let backBtn = document.createElement("button");
-            backBtn.innerText = "Tillbaka";
+            backBtn.innerText = "Back";
             backBtn.addEventListener("click", function() {
                 upperhalf.innerHTML = '<img src="background.jpg">';
                 productList.innerHTML = "";
