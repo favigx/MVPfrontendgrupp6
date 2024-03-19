@@ -19,6 +19,8 @@ function fetchProducts() {
 
 
 function printProducts() {
+    productList.innerHTML = '';
+    productListByCategory.innerHTML = '';
     fetchProducts()
         .then(data => {
             data.forEach(product => {
@@ -157,6 +159,8 @@ function createCheckoutSession() {
 }
 
 function productByCategory(category) {
+    productList.innerHTML = '';
+
     fetch(`http://localhost:8080/api/product/category/${category}`)
         .then(res => res.json())
         .then(data => {
@@ -167,6 +171,7 @@ function productByCategory(category) {
             console.error('Misslyckads att hämta produktkategorier', error);
         });
 
+
 }
 
 
@@ -176,17 +181,17 @@ function displayProducts(products) {
 
     let dropdown = document.getElementById("dropDownCategory");
     let selectedCategory = dropdown.options[dropdown.selectedIndex].value;
-
     products.forEach(product => {
         if (product.category === selectedCategory) {
-            let li = document.createElement("li");
+            let container = document.createElement("div");
+            container.className = "product-container";
 
             let img = document.createElement("img");
             img.src = product.imgUrl;
             img.className = "product-image";
 
-            li.appendChild(img);
-            productListByCategory.appendChild(li);
+            let overlay = document.createElement("div");
+            overlay.className = "overlay";
 
             let addToCartBtn = document.createElement("button");
             addToCartBtn.innerText = "Add to cart";
@@ -194,7 +199,24 @@ function displayProducts(products) {
                 addToCart(product.productId);
             });
 
-            li.appendChild(addToCartBtn);
+            let infoBtn = document.createElement("button");
+            infoBtn.innerText = "Mer info";
+            infoBtn.addEventListener("click", function() {
+                displayProductDetails(product.productId);
+            });
+
+            let productName = document.createElement("span");
+            productName.innerText = product.productName;
+            productName.className = "product-name";
+
+            overlay.appendChild(infoBtn);
+            overlay.appendChild(addToCartBtn);
+            overlay.appendChild(productName);
+
+            container.appendChild(img);
+            container.appendChild(overlay);
+
+            productListByCategory.appendChild(container);
         }
     });
 }
@@ -202,20 +224,19 @@ function displayProducts(products) {
 function handleCategorySelection() {
     let dropdown = document.getElementById("dropDownCategory");
     let selectedCategory = dropdown.options[dropdown.selectedIndex].value;
-    productByCategory(selectedCategory);
-}
 
-handleCategorySelection();
 
-function toggleCart() {
-    isCartVisible = !isCartVisible;
+    if (selectedCategory === "") {
+        productList.innerHTML = '';
 
-    if (isCartVisible) {
-        displayCart();
+        printProducts();
+
     } else {
-        productCart.innerHTML = '';
+        productList.innerHTML = '';
+        productByCategory(selectedCategory);
     }
 }
+
 
 function displayProductDetails(productId) {
     fetch(`http://localhost:8080/api/product/${productId}`)
