@@ -282,7 +282,6 @@ function displayProductDetails(productId) {
             productPrice.style.top = "110px"; 
             productPrice.style.left = "750px"; 
             productPrice.style.color = "white";
-            // productPrice.style.maxWidth = "250px";
             
 
             imageTextContainer.appendChild(productImage);
