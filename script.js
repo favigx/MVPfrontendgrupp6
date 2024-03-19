@@ -248,6 +248,7 @@ function handleCategorySelection() {
 
 
 function displayProductDetails(productId) {
+    productListByCategory.innerHTML = '';
     fetch(`http://localhost:8080/api/product/${productId}`)
         .then(res => res.json())
         .then(product => {
@@ -343,6 +344,7 @@ function displayProductDetails(productId) {
             let backBtn = document.createElement("button");
             backBtn.innerText = "Tillbaka";
             backBtn.addEventListener("click", function() {
+                upperhalf.innerHTML = '<img src="Bakgrund-MVP.jpg">';
                 productList.innerHTML = "";
                 printProducts();
             });
