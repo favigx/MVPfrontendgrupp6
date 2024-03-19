@@ -205,7 +205,7 @@ function displayProducts(products) {
             let addToCartBtn = document.createElement("button");
             addToCartBtn.innerText = "Add to cart";
             addToCartBtn.addEventListener("click", function() {
-                addToCart(product.productId);
+                addToCart(product.productId, product.productName, product.price, product.imgUrl);
             });
 
             let infoBtn = document.createElement("button");
