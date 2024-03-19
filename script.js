@@ -39,7 +39,7 @@ function printProducts() {
                 });
 
                 let infoBtn = document.createElement("button");
-                infoBtn.innerText = "Mer info";
+                infoBtn.innerText = "See details";
                 infoBtn.addEventListener("click", function() {
                     displayProductDetails(product.productId);
                 });
@@ -94,7 +94,7 @@ function displayCart() {
         cartItem.innerText = `${productName} (${quantity})`;
 
         let removeFromCartBtn = document.createElement("button");
-        removeFromCartBtn.innerText = "[X]";
+        removeFromCartBtn.innerText = "X";
         removeFromCartBtn.addEventListener("click", function() {
 
             let updatedCartItems = cartItems.map(item => {
@@ -233,6 +233,14 @@ function displayProductDetails(productId) {
 
             productList.innerHTML = "";
 
+            let upperhalf = document.getElementById("upper-half");
+            upperhalf.innerHTML = "";
+
+            document.body.style.fontFamily = "Roboto, sans-serif";
+
+            let imageTextContainer = document.createElement("div");
+            imageTextContainer.style.position = "relative";
+
             let productInfoBox = document.createElement("div");
             productInfoBox.className = "product-info-box";
 
@@ -245,19 +253,68 @@ function displayProductDetails(productId) {
             let productImage = document.createElement("img");
             productImage.src = product.imgUrl;
             productImage.alt = product.productName;
+            productName.style.position = "absolute"; 
+            
+            productName.style.bottom = "1150px"; 
+            productName.style.left = "60px"; 
+            productName.style.color = "Red";
+            
+            productImage.style.width = "860px";
+            productImage.style.height = "auto"; 
+
+           
+
+            let productDescription = document.createElement("p");
+            productDescription.textContent = product.description;
+            productDescription.style.position = "absolute"; 
+            
+        
+            productDescription.style.top = "100px"; 
+            productDescription.style.left = "23px"; 
+            productDescription.style.color = "white";
+            productDescription.style.maxWidth = "250px";
+
+            let productPrice = document.createElement("p");
+            productPrice.textContent = "Price: " + product.price + " kr";
+            productPrice.style.position = "absolute"; 
+            
+        
+            productPrice.style.top = "110px"; 
+            productPrice.style.left = "750px"; 
+            productPrice.style.color = "white";
+            // productPrice.style.maxWidth = "250px";
+            
+
+            imageTextContainer.appendChild(productImage);
+            imageTextContainer.appendChild(productName);
+            imageTextContainer.appendChild(productDescription);
+            imageTextContainer.appendChild(productPrice);
+
+
+            
 
             let descriptionPriceContainer = document.createElement("div");
             descriptionPriceContainer.className = "description-price";
 
-            let productDescription = document.createElement("p");
-            productDescription.textContent = "beskrivning här: " + product.description;
-
-            let productPrice = document.createElement("p");
-            productPrice.textContent = "Price: " + product.price + " kr";
+            
 
             let buyBtn = document.createElement("button");
+            buyBtn.style.position = "absolute"; 
+            buyBtn.style.top = "70px"; 
+            buyBtn.style.left = "730px";
+            buyBtn.style.padding = "15px 34px";
+            buyBtn.style.textDecoration = "none";
+            buyBtn.style.display = "inline-block";
+            buyBtn.style.margin = "4px 2px";
+            buyBtn.style.cursor = "pointer";
+            buyBtn.style.borderRadius = "15px";
+            buyBtn.style.width = "50px"; 
+            buyBtn.style.height = "65px"; 
+            buyBtn.style.backgroundImage = "url('carticon.jpg')";
+            buyBtn.style.backgroundSize = "cover"; 
+            buyBtn.style.backgroundRepeat = "no-repeat"; 
 
-                buyBtn.innerText = "Add to cart";
+             
                 buyBtn.addEventListener("click", function() {
                     addToCart(product.productId, product.productName, product.price);
                 });
@@ -270,9 +327,10 @@ function displayProductDetails(productId) {
                 printProducts();
             });
 
-            descriptionPriceContainer.appendChild(productDescription);
+            imageTextContainer.appendChild(buyBtn);
+    
             descriptionPriceContainer.appendChild(productPrice);
-            descriptionPriceContainer.appendChild(buyBtn);
+      
             descriptionPriceContainer.appendChild(backBtn);
 
 
@@ -282,6 +340,7 @@ function displayProductDetails(productId) {
 
             productInfoBox.appendChild(productName);
             productInfoBox.appendChild(productDetailsContainer);
+            productList.appendChild(imageTextContainer);
 
             productList.appendChild(productInfoBox);
             productList.scrollIntoView({ behavior: "smooth" });

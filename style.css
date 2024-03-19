@@ -12,13 +12,13 @@ body {
     background-color: #d7d2d2;
 }
 
-.upper-half,
+#upper-half,
 .lower-half {
     flex: 1;
     overflow: hidden;
 }
 
-.upper-half img {
+#upper-half img {
     width: 100%;
     height: 600px;
     object-fit: cover;
@@ -103,11 +103,11 @@ li {
     align-items: center;
 }
 
-.product-details img {
+/* .product-details img {
     max-width: 500px;
     max-height: 500px;
     margin-right: 20px;
-}
+} */
 
 .description-price {
     flex-grow: 1;
