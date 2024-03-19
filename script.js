@@ -337,7 +337,7 @@ function displayProductDetails(productId) {
 
              
                 buyBtn.addEventListener("click", function() {
-                    addToCart(product.productId, product.productName, product.price);
+                    addToCart(product.productId, product.productName, product.price, product.imgUrl);
                 });
 
 
