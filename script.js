@@ -312,4 +312,14 @@ function displayProductDetails(productId) {
         });
 }
 
+function toggleCart() {
+    isCartVisible = !isCartVisible;
+
+    if (isCartVisible) {
+        displayCart();
+    } else {
+        productCart.innerHTML = '';
+    }
+}
+
 cart.addEventListener("click", toggleCart);
