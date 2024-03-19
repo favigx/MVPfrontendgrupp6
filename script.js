@@ -118,13 +118,16 @@ function displayCart() {
         productCart.appendChild(cartItem);
     });
 
-    let createCheckoutBtn = document.createElement("button")
-    createCheckoutBtn.innerText = "Betalning"
-    createCheckoutBtn.addEventListener("click", function() {
-        createCheckoutSession();
-    })
-    productCart.appendChild(createCheckoutBtn);
-}
+    if (cartItems.length > 0) {
+        let createCheckoutBtn = document.createElement("button")
+        createCheckoutBtn.innerText = "Betalning"
+        createCheckoutBtn.addEventListener("click", function() {
+            createCheckoutSession();     
+        })
+        productCart.appendChild(createCheckoutBtn);
+        }
+    }
+
 
 function createCheckoutSession() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
