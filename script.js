@@ -148,7 +148,7 @@ function createCheckoutSession() {
         }
     })
     .then(url => {
-        window.location.href = url;
+        window.open(url);
     })
     .catch(error => {
         console.error('Error creating checkout session:', error);
