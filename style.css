@@ -90,6 +90,7 @@ li {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    border-radius: 15px;
 }
 
 .product-info-box {
@@ -103,13 +104,13 @@ li {
 }
 
 .product-details img {
-    max-width: 500px; 
+    max-width: 500px;
     max-height: 500px;
-    margin-right: 20px; 
+    margin-right: 20px;
 }
 
 .description-price {
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .product-info-box h2 {
@@ -124,4 +125,18 @@ li {
 
 .description-price p:first-child {
     font-weight: bold;
+}
+
+#dropDownCategory {
+    background-color: rgb(169, 166, 166);
+    border: 20xp;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 15px;
 }

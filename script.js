@@ -63,14 +63,18 @@ function printProducts() {
         });
 }
 
+
 function addToCart(productId, productName, price, imgUrl) { 
+
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
+
     let existingCartItem = cartItems.find(item => item.productId === productId);
     if (existingCartItem) {
         existingCartItem.quantity++;
     } else {
+
         cartItems.push({ productId: productId, productName: productName, quantity: 1, price: price, imgUrl: imgUrl}); 
+
     }
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -79,12 +83,12 @@ function addToCart(productId, productName, price, imgUrl) {
 
 function displayCart() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
+
     productCart.innerHTML = '';
     cartItems.forEach(item => {
         let productId = item.productId;
         let quantity = item.quantity;
-        let productName = item.productName; 
+        let productName = item.productName;
 
         let cartItem = document.createElement("li");
         cartItem.innerText = `${productName} (${quantity})`;
@@ -92,21 +96,21 @@ function displayCart() {
         let removeFromCartBtn = document.createElement("button");
         removeFromCartBtn.innerText = "[X]";
         removeFromCartBtn.addEventListener("click", function() {
-            
+
             let updatedCartItems = cartItems.map(item => {
                 if (item.productId === productId) {
                     item.quantity--;
                     if (item.quantity <= 0) {
-                        return null; 
+                        return null;
                     }
                 }
                 return item;
-            }).filter(Boolean); 
-            
-            
+            }).filter(Boolean);
+
+
             localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
-            
+
             displayCart();
         });
 
@@ -117,7 +121,7 @@ function displayCart() {
     let createCheckoutBtn = document.createElement("button")
     createCheckoutBtn.innerText = "Betalning"
     createCheckoutBtn.addEventListener("click", function() {
-        createCheckoutSession();     
+        createCheckoutSession();
     })
     productCart.appendChild(createCheckoutBtn);
 }
@@ -129,11 +133,12 @@ function createCheckoutSession() {
         return {
             productName: item.productName,
             quantity: item.quantity,
-            price: item.price 
+            price: item.price
         };
     });
 
     fetch(`http://localhost:8080/api/product/createcheckoutsession`, {
+
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -154,27 +159,49 @@ function createCheckoutSession() {
         console.error('Error creating checkout session:', error);
         alert('Failed to create checkout session. Please try again.');
     });
+
 }
 
 function productByCategory(category) {
     fetch(`http://localhost:8080/api/product/category/${category}`)
         .then(res => res.json())
         .then(data => {
+            productList.innerHTML = '';
             displayProducts(data);
         })
         .catch(error => {
             console.error('Misslyckads att hämta produktkategorier', error);
         });
+
 }
+
 
 function displayProducts(products) {
     let productListByCategory = document.getElementById("productListByCategory");
     productListByCategory.innerHTML = '';
 
+    let dropdown = document.getElementById("dropDownCategory");
+    let selectedCategory = dropdown.options[dropdown.selectedIndex].value;
+
     products.forEach(product => {
-        let li = document.createElement("li");
-        li.innerText = product.productName;
-        productListByCategory.appendChild(li);
+        if (product.category === selectedCategory) {
+            let li = document.createElement("li");
+
+            let img = document.createElement("img");
+            img.src = product.imgUrl;
+            img.className = "product-image";
+
+            li.appendChild(img);
+            productListByCategory.appendChild(li);
+
+            let addToCartBtn = document.createElement("button");
+            addToCartBtn.innerText = "Add to cart";
+            addToCartBtn.addEventListener("click", function() {
+                addToCart(product.productId);
+            });
+
+            li.appendChild(addToCartBtn);
+        }
     });
 }
 
@@ -202,10 +229,10 @@ function displayProductDetails(productId) {
         .then(product => {
 
             productList.innerHTML = "";
-            
+
             let productInfoBox = document.createElement("div");
             productInfoBox.className = "product-info-box";
-            
+
             let productName = document.createElement("h2");
             productName.textContent = product.productName;
 
@@ -226,24 +253,26 @@ function displayProductDetails(productId) {
             productPrice.textContent = "Price: " + product.price + " kr";
 
             let buyBtn = document.createElement("button");
+
                 buyBtn.innerText = "Add to cart";
                 buyBtn.addEventListener("click", function() {
                     addToCart(product.productId, product.productName, product.price);
                 });
 
+
             let backBtn = document.createElement("button");
             backBtn.innerText = "Tillbaka";
             backBtn.addEventListener("click", function() {
-                            productList.innerHTML = "";
-                            printProducts();
-                        });
+                productList.innerHTML = "";
+                printProducts();
+            });
 
             descriptionPriceContainer.appendChild(productDescription);
             descriptionPriceContainer.appendChild(productPrice);
             descriptionPriceContainer.appendChild(buyBtn);
             descriptionPriceContainer.appendChild(backBtn);
 
-            
+
 
             productDetailsContainer.appendChild(productImage);
             productDetailsContainer.appendChild(descriptionPriceContainer);
