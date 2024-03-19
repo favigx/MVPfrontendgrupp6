@@ -344,7 +344,7 @@ function displayProductDetails(productId) {
             let backBtn = document.createElement("button");
             backBtn.innerText = "Tillbaka";
             backBtn.addEventListener("click", function() {
-                upperhalf.innerHTML = '<img src="Bakgrund-MVP.jpg">';
+                upperhalf.innerHTML = '<img src="background1.jpg">';
                 productList.innerHTML = "";
                 printProducts();
             });
