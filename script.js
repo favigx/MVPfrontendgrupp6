@@ -35,7 +35,7 @@ function printProducts() {
                 let button = document.createElement("button");
                 button.innerText = "Add to cart";
                 button.addEventListener("click", function() {
-                    addToCart(product.productId, product.productName, product.price);
+                    addToCart(product.productId, product.productName, product.price, product.imgUrl);
                 });
 
                 let infoBtn = document.createElement("button");
@@ -63,14 +63,14 @@ function printProducts() {
         });
 }
 
-function addToCart(productId, productName, price) { 
+function addToCart(productId, productName, price, imgUrl) { 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     
     let existingCartItem = cartItems.find(item => item.productId === productId);
     if (existingCartItem) {
         existingCartItem.quantity++;
     } else {
-        cartItems.push({ productId: productId, productName: productName, quantity: 1, price: price}); 
+        cartItems.push({ productId: productId, productName: productName, quantity: 1, price: price, imgUrl: imgUrl}); 
     }
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -228,7 +228,7 @@ function displayProductDetails(productId) {
             let buyBtn = document.createElement("button");
                 buyBtn.innerText = "Add to cart";
                 buyBtn.addEventListener("click", function() {
-                    addToCart(product.productId);
+                    addToCart(product.productId, product.productName, product.price);
                 });
 
             let backBtn = document.createElement("button");
