@@ -346,7 +346,7 @@ function displayProductDetails(productId) {
             let backBtn = document.createElement("button");
             backBtn.innerText = "Back";
             backBtn.addEventListener("click", function() {
-                upperhalf.innerHTML = '<img src="background.jpg">';
+                upperhalf.innerHTML = '<img src="background2.jpg">';
                 productList.innerHTML = "";
                 printProducts();
             });
