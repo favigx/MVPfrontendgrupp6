@@ -49,6 +49,7 @@ function printProducts() {
                 let text = document.createElement("span");
                 text.innerText = product.productName;
                 text.className = "product-name";
+                text.style.fontFamily = "Segoe UI, Tahoma, Geneva, Verdana, sans-serif";
 
                 overlay.appendChild(infoBtn);
                 overlay.appendChild(button);
@@ -92,8 +93,15 @@ function displayCart() {
         let quantity = item.quantity;
         let productName = item.productName;
 
+        
+
+
         let cartItem = document.createElement("li");
         cartItem.innerText = `${productName} (${quantity})`;
+        cartItem.style.fontFamily = "Segoe UI, Tahoma, Geneva, Verdana, sans-serif";
+        cartItem.style.fontWeight = "900";
+        cartItem.style.color = "rgb(109, 141, 156)"
+
 
         let removeFromCartBtn = document.createElement("button");
         removeFromCartBtn.innerText = "X";
@@ -209,7 +217,7 @@ function displayProducts(products) {
             });
 
             let infoBtn = document.createElement("button");
-            infoBtn.innerText = "Mer info";
+            infoBtn.innerText = "See details";
             infoBtn.addEventListener("click", function() {
                 displayProductDetails(product.productId);
             });
@@ -280,6 +288,7 @@ function displayProductDetails(productId) {
             productName.style.bottom = "1150px"; 
             productName.style.left = "110px"; 
             productName.style.color = "Red";
+            productName.style.fontFamily = "Segoe UI, Tahoma, Geneva, Verdana, sans-serif";
             
             productImage.style.width = "100%";
             productImage.style.height = "100%"; 
@@ -291,11 +300,12 @@ function displayProductDetails(productId) {
             productDescription.style.position = "absolute"; 
             
         
-            productDescription.style.top = "250px"; 
+            productDescription.style.top = "200px"; 
             productDescription.style.left = "70px"; 
             productDescription.style.color = "white";
             productDescription.style.maxWidth = "600px";
             productDescription.style.fontSize = "40px"
+            productDescription.style.fontFamily = "Segoe UI, Tahoma, Geneva, Verdana, sans-serif";
 
             let productPrice = document.createElement("p");
             productPrice.textContent = "Price: " + product.price + " kr";
@@ -306,6 +316,7 @@ function displayProductDetails(productId) {
             productPrice.style.left = "110px"; 
             productPrice.style.color = "white";
             productPrice.style.fontSize = "20px"
+            productPrice.style.fontFamily = "Segoe UI, Tahoma, Geneva, Verdana, sans-serif";
 
             imageTextContainer.appendChild(productImage);
             imageTextContainer.appendChild(productName);
